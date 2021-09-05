@@ -1,0 +1,28 @@
+05:12:47 **** Build of configuration Debug for project Priority_queue ****
+make all 
+Building file: ../main.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"main.d" -MT"main.o" -o "main.o" "../main.c"
+../main.c: In function ‘deleteMax’:
+../main.c:153:3: warning: implicit declaration of function ‘percolate’; did you mean ‘percolateDown’? [-Wimplicit-function-declaration]
+   percolate( p , 0);
+   ^~~~~~~~~
+   percolateDown
+../main.c: In function ‘buildHeap’:
+../main.c:209:17: warning: ‘i’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+  for (int i = (i-1)/2; i < n; ++i) {
+               ~~^~~
+Finished building: ../main.c
+ 
+Building target: Priority_queue
+Invoking: GCC C Linker
+gcc  -o "Priority_queue"  ./main.o   
+./main.o: In function `deleteMax':
+/mnt/59437C0A41A2928D/D/Ragab/DatastructureAndAlgorithm/Priority_queue/Debug/../main.c:153: undefined reference to `percolate'
+makefile:29: recipe for target 'Priority_queue' failed
+collect2: error: ld returned 1 exit status
+make: *** [Priority_queue] Error 1
+"make all" terminated with exit code 2. Build might be incomplete.
+
+05:12:48 Build Failed. 3 errors, 2 warnings. (took 645ms)
+

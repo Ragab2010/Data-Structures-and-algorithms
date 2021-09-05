@@ -1,0 +1,11 @@
+08:12:53 **** Rebuild of configuration Debug for project Searching_algorithms ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'binarySearchRecursive':
+..\main.c:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc -o Searching_algorithms.exe main.o 
+
+08:12:53 Build Finished. 0 errors, 1 warnings. (took 298ms)
+

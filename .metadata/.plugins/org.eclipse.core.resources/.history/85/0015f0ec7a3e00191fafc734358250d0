@@ -1,0 +1,71 @@
+/*
+ * main.c
+ *
+ *  Created on: ??þ/??þ/????
+ *      Author: ENG.HamaDa
+ */
+#include <stdio.h>
+
+
+int binarySearch(int *a , int n , int data){
+	int low , high , middle;
+	low = 0;high = n-1;
+	while(low <= high ){
+		middle = low + (high - low)/2;
+		if(data > a[middle]){
+			low = middle+1;
+		}else if (data < a[middle]){
+			high = middle-1;
+		}else if(data == a[middle]){
+			return middle;
+		}
+	}
+	return  -1;
+}
+
+int binarySearchRecursive(int *a , int n , int data , int low , int high ){
+	int  middle = low + (high - low)/2;
+	if (low > high ){
+		return -1;
+	}else{
+		if(data == a[middle])
+			return middle ;
+		if(data > a[middle]){
+			binarySearchRecursive(a , n ,data , middle+1 , high );
+		}else{
+			binarySearchRecursive(a , n ,data , low ,  middle-1);
+		}
+	}
+
+
+}
+
+/***checkduplicate ***/
+int abs(int data){
+	if(data<0){
+		data *= -1;
+	}
+	return  data;
+}
+
+void CheckDuplicate(int *a , int n){
+	for(int i=0 ; i< n ; i++){
+		if(a[abs(a[i])] < 0){
+			printf("Duplicate exist:%d ",a[i]);
+			return;
+		}else
+			a[a[i]] = -a[a[i]];
+	}
+	printf("No duplicates in given array");
+}
+
+#define N 5
+int main(){
+	int a[N]={1,4,3,4,2};
+//	int i = binarySearchRecursive(a , N , 7,0 , 9);
+//	printf("the index is= %d \n ", a[i]);
+	CheckDuplicate(a , N);
+
+	return 0;
+}
+

@@ -1,0 +1,32 @@
+/*
+ * main.c
+ *
+ *  Created on: May 26, 2019
+ *      Author: ragab
+ */
+
+/**
+  -Queue -> the operation is  EnQueue and DeQueue operations
+  -A priority queue ADT is a data structure that supports the operations Insert and DeleteMin (which returns and removes the
+	minimum element) or DeleteMax (which returns and removes the maximum element) ,n priority queues, the order in which the elements enter the queue may not be the same in
+	which they were processed
+  -A priority queue is an ascending or a descending
+	an  ascending  if the item with the smallest key has the highest priority (that means, delete the smallest element always).
+	an descending  if the item with the largest key has the highest priority (delete the maximum element always).
+  -----------------
+
+
+ * **/
+
+#include <stdio.h>
+
+
+
+
+int main(){
+
+
+
+	return 0;
+}
+

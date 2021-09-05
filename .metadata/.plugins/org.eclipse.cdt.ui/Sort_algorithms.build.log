@@ -1,0 +1,14 @@
+18:45:22 **** Incremental Build of configuration Debug for project Sort_algorithms ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:159:6: warning: unused variable 'B' [-Wunused-variable]
+  int B[10]={0};
+      ^
+..\main.c:157:6: warning: unused variable 'a' [-Wunused-variable]
+  int a[8]={3,2,1,0,9,4,3,1};
+      ^
+gcc -o Sort_algorithms.exe main.o 
+
+18:45:22 Build Finished. 0 errors, 2 warnings. (took 286ms)
+

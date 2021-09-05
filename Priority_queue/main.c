@@ -1,0 +1,241 @@
+/*
+ * main.c
+ *
+ *  Created on: May 26, 2019
+ *      Author: ragab
+ */
+
+/**
+  -Queue -> the operation is  EnQueue and DeQueue operations
+  -A priority queue ADT is a data structure that supports the operations Insert and DeleteMin (which returns and removes the
+	minimum element) or DeleteMax (which returns and removes the maximum element) ,n priority queues, the order in which the elements enter the queue may not be the same in
+	which they were processed
+  -A priority queue is an ascending or a descending
+	an  ascending  if the item with the smallest key has the highest priority (that means, delete the smallest element always).
+	an descending  if the item with the largest key has the highest priority (delete the maximum element always).
+  -----------------
+
+
+ * **/
+
+//#include <stdio.h>
+//
+//
+//
+//
+//int main(){
+//
+//printf("welcome in egypt");
+//
+//	return 0;
+//}
+
+
+#include <stdio.h>
+#include <stdlib.h>
+/*create the heap */
+
+typedef struct {
+	int* array ;
+	int count ;
+	int capacity;
+	int heap_type;
+}HEAP;
+
+
+int parent(HEAP *p , int i);
+HEAP * createHeap(int cap , int heap_type);
+int leftChild(HEAP *p , int i);
+int rightChild(HEAP *p , int i);
+int getMax(HEAP *p);
+void percolateDown(HEAP *p , int i );
+int deleteMax(HEAP * p );
+int  insert(HEAP *p , int data );
+int  resizeHeap(HEAP *p);
+int destroyHeap(HEAP *p );
+int buildHeap(HEAP *p ,int *a  , int n);
+int heapSort(int *a , int n);
+
+
+int main(){
+	int a[10]={9,3,5,41,6,8,2,1,0,7};
+	heapSort(a , 10);
+	for (int var = 0; var < 10; ++var) {
+		printf("%d\t" , a[var]);
+	}
+
+
+	return 0;
+}
+
+
+
+/*************IMPLEMENTATION***********/
+
+int parent(HEAP *p , int i){
+		if(i <=0 || i >= p->count ){
+			return -1;
+		}else{
+			return (i-1)/2;
+		}
+}
+
+
+
+HEAP * createHeap(int cap , int heap_type){
+	HEAP * pt = (HEAP* ) malloc(sizeof(HEAP ));
+	if(!pt){
+		printf("Memory error");
+		return NULL;
+	}
+	pt->capacity = cap;
+	pt->heap_type = heap_type;
+	pt->count=0;
+	pt->array = (int *) malloc(sizeof(int)* cap);
+	if(!pt->array){
+		printf("Memory error");
+		return NULL;
+	}
+	return pt;
+
+}
+
+int leftChild(HEAP *p , int i){
+	int left =2*i + 1;
+	if(left >= p->count){
+		return -1;
+	}
+	return left;
+}
+int rightChild(HEAP *p , int i){
+	int right =2*i + 2;
+	if(right >= p->count){
+		return -1;
+	}
+	return right;
+}
+
+int getMax(HEAP *p){
+	if(p->count ==0)
+		return -1;
+	return p->array[0];
+}
+
+void percolateDown(HEAP *p , int i ){
+	int  l , r , max , temp;
+	 l = leftChild(p , i );
+	 r = rightChild(p , i);
+	 if((l != 0)&&(p->array[l]>p->array[i])){
+		 max = l;
+	 }else{
+		 max = i;
+	 }
+	 if((r != 0)&&(p->array[r] > p->array[max])){
+		 max = r;
+	 }
+	 if(max != i){
+		 temp = p->array[i];
+		 p->array[i]=p->array[max];
+		 p->array[max]=temp;
+
+	 }
+	 percolateDown( p , max);
+
+}
+
+int deleteMax(HEAP * p ){
+	int data;
+	if(!p){
+		return -1;
+	}
+	data= p->array[0];
+	 p->array[0]= p->array[p->count-1];
+	 percolate( p , 0);
+	 return data;
+}
+
+int  insert(HEAP *p , int data ){
+	int i;
+	if(p->count == p->capacity){
+		resizeHeap(p);
+	}
+	p->count++;
+	i=p->count-1;
+	//p->array[i]=data;
+	while((i>=0) && (data >p->array[(i-1)/2])){
+		p->array[i]=p->array[(i-1)/2];
+		i=(i-1)/2;
+	}
+	p->array[i]=data;
+return 1;
+}
+int  resizeHeap(HEAP *p){
+	int * old_arry = p->array;
+	p->array = (int *)malloc(sizeof(int)*p->capacity *2);
+	if(!p->array){
+		printf("Memory Error");
+		return 0;
+	}
+	for(int i =0; i<p->capacity ; i++){
+		p->array[i]=old_arry[i];
+	}
+	p->capacity *=2;
+	free(old_arry);
+
+	return 1;
+}
+
+int destroyHeap(HEAP *p ){
+	if(!p)
+		return 1;
+	else{
+		free(p->array);
+		free(p);
+		return 1;
+	}
+}
+
+int buildHeap(HEAP *p ,int *a  , int n){
+	if(!p)
+		return -1;
+
+	while( n > p->capacity){
+		resizeHeap(p);
+	}
+	for (int i = 0; i < n; ++i) {
+		p->array[i]= a[i];
+	}
+	p->capacity =n;
+	for (int i = (i-1)/2; i < n; ++i) {
+		percolateDown(p , i);
+	}
+	return 1;
+
+}
+
+int heapSort(int *a , int n){
+	int old_size , i , temp;
+	HEAP * p = createHeap(n , 1);
+	buildHeap(p , a , n);
+	old_size =p->count;
+	for ( i = n-1; i > 0; i--) {
+		temp =p->array[0];
+		p->array[0] =p->array[p->count -1];
+		p->array[0] =temp;
+		p->count--;
+		percolateDown(p , 0);
+	}
+	p->count =old_size;
+	return 1;
+
+}
+
+
+
+
+
+
+
+
+
+

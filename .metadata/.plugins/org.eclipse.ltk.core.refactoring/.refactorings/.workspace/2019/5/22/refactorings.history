@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;Heap_Sort/src&apos;" deleteContents="false" description="Delete resource &apos;Heap_Sort/src&apos;" element1="/Heap_Sort/src" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1558927044703"/>
+</session>
